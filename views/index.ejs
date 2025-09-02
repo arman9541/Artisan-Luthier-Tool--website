@@ -1,0 +1,44 @@
+<script>
+  // Function to render the cart summary on page load
+  function renderCartSummary() {
+    // Read cart from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const cartItems = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    const payButton = document.getElementById('pay-button');
+    const cartDataInput = document.getElementById('cart-data');
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<li>Your cart is empty.</li>';
+      cartTotalEl.textContent = 'Total: $0.00';
+      payButton.disabled = true;
+      cartDataInput.value = '';
+      return;
+    }
+
+    let total = 0;
+    cartItems.innerHTML = '';
+
+    cart.forEach(item => {
+      const itemTotal = Number(item.price) * Number(item.qty);
+      total += itemTotal;
+
+      const li = document.createElement('li');
+      li.textContent = `${item.name} x${item.qty} - $${itemTotal.toFixed(2)}`;
+      cartItems.appendChild(li);
+    });
+
+    cartTotalEl.textContent = `Total: $${total.toFixed(2)}`;
+    payButton.disabled = false;
+
+    // Pass cart to backend
+    cartDataInput.value = JSON.stringify(cart);
+  }
+
+  // Render cart summary on page load
+  window.addEventListener('DOMContentLoaded', renderCartSummary);
+
+  // Optional: update cart summary if localStorage changes in another tab
+  window.addEventListener('storage', renderCartSummary);
+</script>
