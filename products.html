@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | Artisan Luthier Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* CART ICON */
+    .cart-link {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      width: auto;
+      height: auto;
+    }
+    .cart-link:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .cart-link svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff3b3b;
+      color: #fff;
+      border-radius: 50%;
+      padding: 3px 5px;
+      font-size: 0.40em;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+      color: #222;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: #222;
+      padding: 18px 0 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 28px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1em;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffa99f;
+    }
+
+    .products-hero {
+      background: linear-gradient(90deg, #ffe29f 0%, #ffa99f 50%, #a1c4fd 100%);
+      padding: 48px 0 24px 0;
+      text-align: center;
+    }
+    .products-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin: 0 0 10px 0;
+      color: #222;
+      letter-spacing: 0.06em;
+      text-shadow: 0 2px 12px #fff8, 0 1px 0 #fff;
+    }
+
+    .products-list {
+      max-width: 1100px;
+      margin: 40px auto 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px #a1c4fd22;
+      padding: 32px 28px 24px 28px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 40px #ffa99f33;
+    }
+    .product-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3em;
+      margin: 0 0 8px 0;
+      color: #222;
+    }
+    .product-card p {
+      color: #444;
+      font-size: 1.05em;
+      margin: 0 0 8px 0;
+      text-align: center;
+    }
+    .product-card .price {
+      font-size: 1.15em;
+      color: #ffa99f;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .product-card button {
+      background: linear-gradient(90deg, #ffa99f 0%, #a1c4fd 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .product-card button:hover {
+      background: linear-gradient(90deg, #a1c4fd 0%, #ffa99f 100%);
+      color: #fff;
+    }
+
+    .cart-section {
+      max-width: 700px;
+      margin: 48px auto 32px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px #a1c4fd22;
+      padding: 32px 24px 24px 24px;
+    }
+    .cart-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      margin: 0 0 18px 0;
+      color: #222;
+    }
+    .cart-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+    }
+    .cart-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1.08em;
+    }
+    .cart-list li:last-child {
+      border-bottom: none;
+    }
+    .cart-total {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #ffa99f;
+      text-align: right;
+      margin-bottom: 18px;
+    }
+    .checkout-btn {
+      background: linear-gradient(90deg, #ffa99f 0%, #a1c4fd 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 32px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      float: right;
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(90deg, #a1c4fd 0%, #ffa99f 100%);
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .products-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-card {
+        width: 90vw;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+
+    <!-- Cart Icon -->
+    <a href="/checkout" class="cart-link">
+      <svg viewBox="0 0 24 24">
+        <path d="M7 4h-2l-3 9h2l2-6h12l1 3h2l-2-6h-13zM7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/>
+      </svg>
+      <span id="cart-count">0</span>
+    </a>
+  </nav>
+
+  <div class="products-hero">
+    <h1>Our Products</h1>
+  </div>
+
+  <div class="products-list" id="products-list"></div>
+
+  <div class="cart-section" id="cart-section" style="display:none;">
+    <h2>Your Cart</h2>
+    <ul class="cart-list" id="cart-list"></ul>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Cello Neck Setting Adjusting Tool", description: "Ensures optimal neck angle alignment for cellos.", price: 420, img: "IMG_2757.PNG" },
+      { name: "Cello Neck Fixing Tool", description: "Securely holds the cello fingerboard and neck in place during neck setting, resetting, or gluing, ensuring stability and precision throughout the process.", price: 350, img: "IMG_3000PNG" },
+      { name: "Violin/Viola Neck Setting Adjusting Tool", description: "Ensures optimal neck angle alignment for violin/viola.", price: 370, img: "IMG_2900.png" },
+      { name: "Violin/Viola Neck Fixing Tool", description: "Securely holds the violin/viola fingerboard and neck in place during neck setting, resetting, or gluing, ensuring stability and precision throughout the process.", price: 285, img: "IMG_2800.png" },
+      { name: "Special Design Violin f-hole Leveling Jack", description: "Designed to precisely align surface cracks on the violin f-holes, ensuring accurate positioning for gluing and optimal structural integrity.", price: 80, img: "ART_4.png" },
+      { name: "Special Design Cello f-hole leveling jack", description: "Designed to precisely align surface cracks on the cello f-holes, ensuring accurate positioning for gluing and optimal structural integrity.", price: 100, img: "ART_5.png" },
+      { name: "Special Design Cello f-hole crack clamp", description: "Aligns and stabilizes cello top cracks at the f-hole for precise gluing.", price: 380, img: "ART_ 6.png" },
+      { name: "Special Design Violin/Viola f-hole crack clamp", description: "Aligns and stabilizes violin or viola top cracks at the f-hole for precise gluing.", price: 320, img: "ART_ 7.png" },
+      { name: "35 pcs Violin/Viola Clamps", description: "Color-coded clamps to protect varnish and edges during gluing.", price: 495, img: "ART_8.png" },
+      { name: "45 pcs Cello clamps", description: "Color-coded clamps to protect varnish and edges during gluing.", price: 690, img: "ART_9.png" }
+    ];
+
+    let cart = [];
+
+    function loadCart() {
+      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      updateCartCount();
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function renderProducts() {
+      const list = document.getElementById('products-list');
+      list.innerHTML = '';
+      products.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" style="width:100%;max-width:220px;border-radius:10px;margin-bottom:12px;box-shadow:0 2px 12px #a1c4fd33;">
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <div class="price">$${p.price} USD</div>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function addToCart(idx) {
+      const prod = products[idx];
+      const found = cart.find(item => item.name === prod.name);
+      if (found) found.qty += 1;
+      else cart.push({ ...prod, qty: 1 });
+      saveCart();
+      renderCart();
+    }
+
+    function removeFromCart(idx) {
+      if (cart[idx].qty > 1) cart[idx].qty -= 1;
+      else cart.splice(idx, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      const section = document.getElementById('cart-section');
+      const list = document.getElementById('cart-list');
+      const totalDiv = document.getElementById('cart-total');
+      if (cart.length === 0) {
+        section.style.display = 'none';
+        updateCartCount();
+        return;
+      }
+      section.style.display = 'block';
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, i) => {
+        total += item.price * item.qty;
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.name} <span>x${item.qty}</span> <span>$${item.price * item.qty} USD</span>
+          <button onclick="removeFromCart(${i})" style="margin-left:12px; background:#ffa99f; border:none; border-radius:4px; padding:2px 8px; cursor:pointer;">Remove</button>
+        `;
+        list.appendChild(li);
+      });
+      totalDiv.textContent = `Total: $${total} USD`;
+      updateCartCount();
+    }
+
+    function checkout() {
+      window.location.href = "/checkout";
+    }
+    
+
+    // Initialize
+    loadCart();
+    renderProducts();
+    renderCart();
+  </script>
+
+</body>
+</html>
