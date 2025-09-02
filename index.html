@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artisan Luthier Tools</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto', Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* NAVIGATION */
+    nav {
+      background: #444;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center; /* keep links centered */
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      position: relative;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    nav a:hover {
+      color: #ffa99f;
+    }
+
+    /* CART ICON */
+    .cart-link {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cart-link:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .cart-link svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff3b3b;
+      color: #fff;
+      border-radius: 50%;
+      padding: 3px 5px;
+      font-size: 0.7em;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* HOME SECTION */
+    #home {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      padding: 0 15px;
+      text-align: center;
+    }
+
+    .fullscreen-logo {
+      width: 55vw;
+      max-width: 800px;
+      min-width: 250px;
+      height: auto;
+      margin-bottom: 3vh;
+      filter: drop-shadow(0 8px 32px #000a);
+    }
+
+    .artistic-hero-text {
+      font-size: 1.5vw;
+      max-width: 90vw;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #ffe29f 0%, #ffa99f 50%, #a1c4fd 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 1px 0 #fff;
+      filter: drop-shadow(0 2px 8px #000a);
+    }
+
+    .artistic-hero-text .brand-name {
+      font-style: italic;
+      letter-spacing: 0.12em;
+      font-size: 1em;
+      display: inline-block;
+      background: linear-gradient(90deg, #ffe29f 0%, #ffa99f 50%, #a1c4fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    /* RESPONSIVE FIX */
+    @media (max-width: 600px) {
+      nav {
+        gap: 10px;
+        font-size: 0.9em;
+        justify-content: center;
+      }
+
+      .cart-link svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .fullscreen-logo {
+        width: 75vw;
+        min-width: 200px;
+      }
+
+      .artistic-hero-text {
+        font-size: 4vw;
+        line-height: 1.3;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+
+    <!-- Cart Icon -->
+    <a href="/checkout" class="cart-link">
+      <svg viewBox="0 0 24 24">
+        <path d="M7 4h-2l-3 9h2l2-6h12l1 3h2l-2-6h-13zM7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/>
+      </svg>
+      <span id="cart-count">0</span>
+    </a>
+  </nav>
+
+  <!-- HOME SECTION -->
+  <section id="home">
+    <div class="hero-logo-wrap">
+      <img src="LOGO.SVG" alt="Artisan Luthier Tools Logo" class="fullscreen-logo" />
+      <div class="artistic-hero-text">
+        Elevate Your Craft<br>
+        <span class="brand-name">with Artisan Luthier Tools</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Artisan Luthier Tools. All rights reserved.
+  </footer>
+
+  <!-- CART COUNT SCRIPT -->
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+  </script>
+</body>
+</html>
