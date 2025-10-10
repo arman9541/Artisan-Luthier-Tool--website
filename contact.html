@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Artisan Luthier Tools</title>
+
+<!-- Prevent caching -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+html, body {margin:0; padding:0; font-family:'Roboto', Arial, sans-serif; min-height:100vh; background:linear-gradient(120deg,#f8fafc 0%,#e0e7ef 100%); color:#222;}
+nav {background:#444; padding:10px 20px; position:sticky; top:0; z-index:1000; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:15px; position:relative;}
+nav a {color:#fff; text-decoration:none; font-weight:bold; font-size:1em;}
+nav a:hover {color:#ffa99f;}
+.cart-link {position:absolute; right:20px; top:50%; transform:translateY(-50%); display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s;}
+.cart-link:hover {transform:translateY(-50%) scale(1.1); box-shadow:0 8px 20px rgba(0,0,0,0.4);}
+.cart-link svg {width:24px; height:24px; fill:#fff;}
+#cart-count {position:absolute; top:-8px; right:-8px; background:#ff3b3b; color:#fff; border-radius:50%; padding:3px 5px; font-size:0.7em; font-weight:bold; box-shadow:0 2px 4px rgba(0,0,0,0.3);}
+.contact-hero {background:linear-gradient(90deg,#ffe29f 0%,#ffa99f 50%,#a1c4fd 100%); padding:48px 15px 24px 15px; text-align:center;}
+.contact-hero h1 {font-family:'Playfair Display', serif; font-size:2.5em; margin:0 0 10px 0; color:#222; letter-spacing:0.06em; text-shadow:0 2px 12px #fff8,0 1px 0 #fff;}
+.contact-hero p {font-size:1.2em; color:#444; margin:0 auto; max-width:600px; line-height:1.5;}
+.contact-content {max-width:600px; margin:40px auto; background:#fff; border-radius:18px; box-shadow:0 4px 32px #a1c4fd22; padding:40px 32px; display:flex; flex-direction:column; gap:24px;}
+.contact-info {width:100%; text-align:left; font-size:1.13em; color:#333; line-height:1.7; margin-bottom:12px;}
+.contact-info strong {color:#ffa99f; font-weight:600;}
+.contact-form {width:100%; display:flex; flex-direction:column; gap:16px;}
+.contact-form label {font-weight:500; margin-bottom:4px; color:#222;}
+.contact-form input, .contact-form textarea {padding:10px; border-radius:6px; border:1px solid #a1c4fd; font-size:1em; font-family:'Roboto', Arial, sans-serif; background:#f8fafc; resize:vertical;}
+.contact-form textarea {min-height:80px; max-height:220px;}
+.contact-form button {background:linear-gradient(90deg,#ffa99f 0%,#a1c4fd 100%); color:#222; border:none; border-radius:8px; padding:10px 32px; font-size:1.1em; font-weight:600; cursor:pointer; transition: background 0.2s, color 0.2s; align-self:flex-end;}
+.contact-form button:hover {background:linear-gradient(90deg,#a1c4fd 0%,#ffa99f 100%); color:#fff;}
+footer {background:#333; color:#fff; text-align:center; padding:20px; font-size:0.9em; margin-top:40px;}
+.honeypot {display:none; visibility:hidden; position:absolute; left:-9999px;}
+@media (max-width:600px){ nav{gap:10px;font-size:0.9em;justify-content:center;} .cart-link svg{width:22px;height:22px;} .contact-hero h1{font-size:2em;} .contact-hero p{font-size:1em;padding:0 10px;} .contact-content{margin:20px;padding:24px;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="products.html">Products</a>
+  <a href="contact.html">Contact</a>
+  <a href="/checkout" class="cart-link">
+    <svg viewBox="0 0 24 24">
+      <path d="M7 4h-2l-3 9h2l2-6h12l1 3h2l-2-6h-13zM7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/>
+    </svg>
+    <span id="cart-count">0</span>
+  </a>
+</nav>
+
+<div class="contact-hero">
+  <h1>Contact Us</h1>
+  <p>We'd love to hear from you! Reach out for questions, orders, or just to say hello.</p>
+</div>
+
+<div class="contact-content">
+  <div class="contact-info">
+    <p><strong>Email:</strong> <a href="mailto:info@artisanluthiertools.com">info@artisanluthiertools.com</a></p>
+    <p><strong>Phone:</strong> +1 (224) 565-2725</p>
+    <p><strong>Instagram:</strong> <a href="https://instagram.com/artisan_luthier_tools" target="_blank">@artisan_luthier_tools</a></p>
+  </div>
+
+  <form class="contact-form" id="contactForm" action="https://formsubmit.co/info@artisanluthiertools.com" method="POST">
+    <input type="hidden" name="_next" value="https://www.artisanluthiertools.com/thank-you.html">
+    <input type="hidden" name="_captcha" value="false">
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Phone</label>
+    <input type="tel" id="phone" name="phone" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <!-- Honeypot field -->
+    <input type="text" name="website" class="honeypot" autocomplete="off">
+
+    <!-- reCAPTCHA -->
+    <div class="g-recaptcha" data-sitekey="6LcJoOUrAAAAAMj6EoReyNt6SyaHgzyvtJWpFn3W"></div>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<footer>
+  &copy; 2025 Artisan Luthier Tools. All rights reserved.
+</footer>
+
+<script>
+let formStartTime = Date.now();
+
+// Load reCAPTCHA
+function loadRecaptcha() {
+  const script = document.createElement('script');
+  script.src = 'https://www.google.com/recaptcha/api.js';
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+}
+document.addEventListener('DOMContentLoaded', loadRecaptcha);
+
+// Validate honeypot, time, and reCAPTCHA
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', (e) => {
+  const honeypot = form.querySelector('[name="website"]').value;
+  const elapsed = (Date.now() - formStartTime) / 1000;
+
+  if (honeypot) {
+    e.preventDefault();
+    alert('Spam detected.');
+    return;
+  }
+
+  if (elapsed < 5) {
+    e.preventDefault();
+    alert('Please take a moment to fill the form.');
+    return;
+  }
+
+  const captchaResponse = grecaptcha.getResponse();
+  if (!captchaResponse) {
+    e.preventDefault();
+    alert('Please complete the reCAPTCHA before submitting.');
+  }
+});
+
+// Update cart count
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+}
+updateCartCount();
+window.addEventListener('storage', updateCartCount);
+</script>
+
+</body>
+</html>
