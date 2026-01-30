@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Artisan Luthier Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+      color: #222;
+      min-height: 100vh;
+    }
+    nav {
+      background: #222;
+      padding: 18px 0 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 28px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1em;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffa99f;
+    }
+    .contact-hero {
+      background: linear-gradient(90deg, #ffe29f 0%, #ffa99f 50%, #a1c4fd 100%);
+      padding: 48px 0 24px 0;
+      text-align: center;
+    }
+    .contact-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin: 0 0 10px 0;
+      color: #222;
+      letter-spacing: 0.06em;
+      text-shadow: 0 2px 12px #fff8, 0 1px 0 #fff;
+    }
+    .contact-hero p {
+      font-size: 1.2em;
+      color: #444;
+      margin: 0 auto;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    .contact-content {
+      max-width: 600px;
+      margin: 40px auto 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #a1c4fd22;
+      padding: 40px 32px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .contact-info {
+      width: 100%;
+      text-align: left;
+      font-size: 1.13em;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .contact-info strong {
+      color: #ffa99f;
+      font-weight: 600;
+    }
+    .contact-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-form label {
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #222;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #a1c4fd;
+      font-size: 1em;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #f8fafc;
+      resize: vertical;
+    }
+    .contact-form textarea {
+      min-height: 80px;
+      max-height: 220px;
+    }
+    .contact-form button {
+      background: linear-gradient(90deg, #ffa99f 0%, #a1c4fd 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 32px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-end;
+    }
+    .contact-form button:hover {
+      background: linear-gradient(90deg, #a1c4fd 0%, #ffa99f 100%);
+      color: #fff;
+    }
+    .contact-success {
+      color: #2e7d32;
+      background: #e8f5e9;
+      border-radius: 8px;
+      padding: 10px 18px;
+      margin-top: 10px;
+      font-weight: 500;
+      display: none;
+    }
+    @media (max-width: 700px) {
+      .contact-content {
+        padding: 18px 4vw 18px 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+  <a href="products.html">Products</a>
+  <a href="contact.html">Contact</a>
+  </nav>
+  <div class="contact-hero">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you! Reach out for questions, orders, or just to say hello.</p>
+  </div>
+  <div class="contact-content">
+    <div class="contact-info">
+      <p><strong>Email:</strong> <a href="mailto:info@artisanluthiertools.com">info@artisanluthiertools.com</a></p>
+      <p><strong>Phone:</strong> +1 (224) 565-2725</p>
+      <p><strong>Instagram:</strong> <a href="https://instagram.com/artisan_luthier_tools" target="_blank">@artisan_luthier_tools</a></p>
+    </div>
+   <form class="contact-form" action="https://formsubmit.co/info@artisanluthiertools.com" method="POST">
+  <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+  <input type="hidden" name="_captcha" value="false">
+  
+  <label for="name">Name</label>
+  <input type="text" id="name" name="name" required />
+  
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required />
+  
+  <label for="message">Message</label>
+  <textarea id="message" name="message" required></textarea>
+  
+  <button type="submit">Send Message</button>
+</form>
+</form>
+    <div class="contact-success" id="contact-success" style="display:none;">
+      <strong>Success!</strong> Your message has been received. We will keep in touch as soon as possible.
+  </div>
+  <script>
+     document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('contact-success').style.display = 'block';
+    e.target.reset();
+  });
+</script>
