@@ -1,0 +1,445 @@
+Products · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | Artisan Luthier Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+      color: #222;
+      min-height: 100vh;
+    }
+    nav {
+      background: #222;
+      padding: 18px 0 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 28px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1em;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffa99f;
+    }
+    .products-hero {
+      background: linear-gradient(90deg, #ffe29f 0%, #ffa99f 50%, #a1c4fd 100%);
+      padding: 48px 0 24px 0;
+      text-align: center;
+    }
+    .products-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin: 0 0 10px 0;
+      color: #222;
+      letter-spacing: 0.06em;
+      text-shadow: 0 2px 12px #fff8, 0 1px 0 #fff;
+    }
+    .products-list {
+      max-width: 1100px;
+      margin: 40px auto 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      padding: 0 20px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px #a1c4fd22;
+      padding: 32px 28px 24px 28px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 40px #ffa99f33;
+    }
+    .product-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3em;
+      margin: 0 0 8px 0;
+      color: #222;
+    }
+    .product-card p {
+      color: #444;
+      font-size: 1.05em;
+      margin: 0 0 8px 0;
+      text-align: center;
+    }
+    .product-card .price {
+      font-size: 1.15em;
+      color: #ffa99f;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .product-card button {
+      background: linear-gradient(90deg, #ffa99f 0%, #a1c4fd 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .product-card button:hover {
+      background: linear-gradient(90deg, #a1c4fd 0%, #ffa99f 100%);
+      color: #fff;
+    }
+    .product-card button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .cart-section {
+      max-width: 700px;
+      margin: 48px auto 32px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px #a1c4fd22;
+      padding: 32px 24px 24px 24px;
+    }
+    .cart-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      margin: 0 0 18px 0;
+      color: #222;
+    }
+    .cart-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+    }
+    .cart-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1.08em;
+    }
+    .cart-list li:last-child {
+      border-bottom: none;
+    }
+    .cart-total {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #ffa99f;
+      text-align: right;
+      margin-bottom: 18px;
+    }
+    .checkout-btn {
+      background: linear-gradient(90deg, #ffa99f 0%, #a1c4fd 100%);
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 32px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      float: right;
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(90deg, #a1c4fd 0%, #ffa99f 100%);
+      color: #fff;
+    }
+    .notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: none;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .error {
+      background: #f44336;
+    }
+    @media (max-width: 900px) {
+      .products-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-card {
+        width: 90vw;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="products.html">Products</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  
+  <div class="products-hero">
+    <h1>Our Products</h1>
+  </div>
+  
+  <div class="products-list" id="products-list">
+    <!-- Product cards will be rendered here -->
+  </div>
+  
+  <div class="cart-section" id="cart-section" style="display:none;">
+    <h2>Your Cart</h2>
+    <ul class="cart-list" id="cart-list"></ul>
+    <div class="cart-total" id="cart-total"></div>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+  </div>
+
+  <div id="notification" class="notification"></div>
+
+  <script>
+    // Product data with product IDs for server validation
+    const products = [
+      { 
+        id: "cello-neck-adjusting",
+        name: "Cello Neck Setting Adjusting Tool", 
+        description: "Ensures optimal neck angle alignment for cellos.", 
+        price: 420,
+        image: "IMG_2757.PNG"
+      },
+      { 
+        id: "cello-neck-fixing",
+        name: "Cello Neck Fixing Tool", 
+        description: "Securely holds the cello fingerboard and neck in place during neck setting, resetting, or gluing, ensuring stability and precision throughout the process.", 
+        price: 350,
+        image: "IMG_3000PNG"
+      },
+      { 
+        id: "violin-neck-adjusting",
+        name: "Violin/Viola Neck Setting Adjusting Tool", 
+        description: "Ensures optimal neck angle alignment for violin/viola.", 
+        price: 370,
+        image: "IMG_2900.png"
+      },
+      { 
+        id: "violin-neck-fixing",
+        name: "Violin/Viola Neck Fixing Tool", 
+        description: "Securely holds the violin/viola fingerboard and neck in place during neck setting, resetting, or gluing, ensuring stability and precision throughout the process.", 
+        price: 285,
+        image: "IMG_2800.png"
+      },
+      { 
+        id: "violin-fhole-jack",
+        name: "Special Design Violin f-hole Leveling Jack", 
+        description: "Designed to precisely align surface cracks on the violin f-holes, ensuring accurate positioning for gluing and optimal structural integrity.", 
+        price: 80,
+        image: "ART_4.png"
+      },
+      { 
+        id: "cello-fhole-jack",
+        name: "Special Design Cello f-hole leveling jack", 
+        description: "Designed to precisely align surface cracks on the cello f-holes, ensuring accurate positioning for gluing and optimal structural integrity.", 
+        price: 100,
+        image: "ART_5.png"
+      },
+      { 
+        id: "cello-fhole-clamp",
+        name: "Special Design Cello f-hole crack clamp", 
+        description: "Aligns and stabilizes cello top cracks at the f-hole for precise gluing.", 
+        price: 380,
+        image: "ART_ 6.png"
+      },
+      { 
+        id: "violin-fhole-clamp",
+        name: "Special Design Violin/Viola f-hole crack clamp", 
+        description: "Aligns and stabilizes violin or viola top cracks at the f-hole for precise gluing.", 
+        price: 320,
+        image: "ART_ 7.png"
+      },
+      { 
+        id: "violin-clamps-35",
+        name: "35 pcs Violin/Viola Clamps", 
+        description: "Color-coded clamps to protect varnish and edges during gluing.", 
+        price: 495,
+        image: "ART_8.png"
+      },
+      { 
+        id: "cello-clamps-45",
+        name: "45 pcs Cello clamps", 
+        description: "Color-coded clamps to protect varnish and edges during gluing.", 
+        price: 690,
+        image: "ART_9.png"
+      }
+    ];
+
+    let csrfToken = null;
+
+    // Get CSRF token on page load
+    async function initCSRF() {
+      try {
+        const res = await fetch('/config');
+        const data = await res.json();
+        csrfToken = data.csrfToken;
+      } catch (err) {
+        console.error('Failed to get CSRF token:', err);
+        showNotification('Failed to initialize. Please refresh the page.', true);
+      }
+    }
+
+    // Render products
+    function renderProducts() {
+      const list = document.getElementById('products-list');
+      list.innerHTML = '';
+      
+      products.forEach((p, i) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        // Keep image files exactly the same
+        let imgHTML = '';
+        if (p.image) {
+          imgHTML = `<img src="${p.image}" alt="${p.name}" style="width:100%;max-width:220px;border-radius:10px;margin-bottom:12px;box-shadow:0 2px 12px #a1c4fd33;">`;
+        }
+        
+        card.innerHTML = `
+          ${imgHTML}
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <div class="price">$${p.price} USD</div>
+          <button onclick="addToCart('${p.id}', ${i})" id="btn-${i}">Add to Cart</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // Add to cart (server-side now)
+    async function addToCart(productId, btnIndex) {
+      const button = document.getElementById(`btn-${btnIndex}`);
+      button.disabled = true;
+      button.textContent = 'Adding...';
+
+      try {
+        const res = await fetch('/api/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({
+            productId: productId,
+            qty: 1
+          })
+        });
+
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.error || 'Failed to add to cart');
+        }
+
+        showNotification('Added to cart!');
+        await renderCart();
+      } catch (err) {
+        console.error('Add to cart error:', err);
+        showNotification(err.message || 'Failed to add to cart', true);
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Add to Cart';
+      }
+    }
+
+    // Render cart from server
+    async function renderCart() {
+      try {
+        const res = await fetch('/api/cart');
+        const data = await res.json();
+        const cart = data.cart || [];
+
+        const section = document.getElementById('cart-section');
+        const list = document.getElementById('cart-list');
+        const totalDiv = document.getElementById('cart-total');
+
+        if (cart.length === 0) {
+          section.style.display = 'none';
+          return;
+        }
+
+        section.style.display = 'block';
+        list.innerHTML = '';
+        let total = 0;
+
+        cart.forEach((item, i) => {
+          total += item.price * item.qty;
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>${item.name} <strong>x${item.qty}</strong></span>
+            <span>$${(item.price * item.qty).toFixed(2)} USD</span>
+          `;
+          list.appendChild(li);
+        });
+
+        totalDiv.textContent = `Total: $${total.toFixed(2)} USD`;
+      } catch (err) {
+        console.error('Failed to load cart:', err);
+      }
+    }
+
+    // Show notification
+    function showNotification(message, isError = false) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = 'notification' + (isError ? ' error' : '');
+      notification.style.display = 'block';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+
+    // Checkout
+    function checkout() {
+      window.location.href = "checkout.html";
+    }
+
+    // Initialize
+    async function init() {
+      await initCSRF();
+      renderProducts();
+      await renderCart();
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
