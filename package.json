@@ -1,0 +1,29 @@
+{
+  "name": "artisan-luthier-tools",
+  "version": "1.0.0",
+  "description": "Secure e-commerce site for luthier tools",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "connect-mongo": "^6.0.0",
+    "cookie-parser": "^1.4.6",
+    "csurf": "^1.2.2",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-session": "^1.17.3",
+    "helmet": "^7.1.0",
+    "mongodb": "^6.21.0",
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
