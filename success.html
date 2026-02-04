@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Success | Artisan Luthier Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo { height: 45px; }
+    .brand-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .success-container {
+      max-width: 600px;
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+      text-align: center;
+    }
+    .success-container h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+    .success-container p {
+      color: #6b7280;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .home-btn {
+      background: #1f2937;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .home-btn:hover { background: #111827; }
+    footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 2rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo-container">
+      <img src="LOGO.SVG" class="logo" alt="Artisan Luthier Tools Logo">
+      <span class="brand-text">Artisan Luthier Tools</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="success-container">
+    <h1>Thank you for your purchase!</h1>
+    <p>Your payment was successfully processed. Your order is being prepared.</p>
+    <a href="products.html" class="home-btn">← Back to Products</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2024 Artisan Luthier Tools. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
