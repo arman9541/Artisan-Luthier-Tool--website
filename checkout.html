@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Checkout | Artisan Luthier Tools</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo { height: 45px; }
+    .brand-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    .security-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #059669;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: #d1fae5;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+    }
+    main { flex: 1; padding: 40px 20px; }
+    .checkout-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+    .checkout-subtitle {
+      color: #6b7280;
+      margin-bottom: 2rem;
+      font-size: 0.9375rem;
+    }
+    .cart-summary {
+      background: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      border: 1px solid #e5e7eb;
+    }
+    .cart-summary h2 { font-size: 1.125rem; margin-bottom: 1rem; }
+    .cart-summary ul { list-style: none; }
+    .cart-summary li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      margin-top: 1rem;
+      border-top: 2px solid #e5e7eb;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .submit-btn {
+      background: #1f2937;
+      border: none;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 16px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 1.0625rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .submit-btn:hover:not(:disabled) { background: #111827; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .loading { display: none; text-align: center; margin-top: 1rem; color: #6b7280; }
+    .error {
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+    footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 2rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo-container">
+      <img src="LOGO.SVG" class="logo">
+      <span class="brand-text">Artisan Luthier Tools</span>
+    </div>
+    <div class="security-badge">🔒 Secure Checkout</div>
+  </div>
+</header>
+
+<main>
+  <div class="checkout-container">
+    <h1>Secure Checkout</h1>
+    <p class="checkout-subtitle">Review your order and proceed to payment</p>
+
+    <div class="cart-summary" id="cart-summary">
+      <h2>Order Summary</h2>
+      <ul id="cart-items"></ul>
+      <div class="total-row">
+        <span>Total</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+    </div>
+
+    <button id="pay-button" class="submit-btn">
+      💳 Proceed to Stripe Checkout
+    </button>
+
+    <div class="loading" id="loading">Processing your request...</div>
+    <div class="error" id="error"></div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2024 Artisan Luthier Tools. All rights reserved.</p>
+</footer>
+
+<script>
+const API_BASE = "https://artisan-luthier-tool-website-1.onrender.com";
+let stripe;
+let csrfToken;
+
+async function init() {
+  try {
+    const res = await fetch(`${API_BASE}/config`, { credentials: "include" });
+    const data = await res.json();
+
+    stripe = Stripe(data.publishableKey);
+    csrfToken = data.csrfToken;
+
+    await loadCart();
+  } catch (err) {
+    showError("Failed to initialize checkout.");
+    document.getElementById("pay-button").disabled = true;
+  }
+}
+
+async function loadCart() {
+  try {
+    const res = await fetch(`${API_BASE}/api/cart`, { credentials: "include" });
+    const { cart } = await res.json();
+
+    const list = document.getElementById("cart-items");
+    const totalEl = document.getElementById("cart-total");
+    let total = 0;
+    list.innerHTML = "";
+
+    if (!cart.length) {
+      document.getElementById("cart-summary").innerHTML = `
+        <p>Your cart is empty.</p>
+        <a href="products.html">← Back to products</a>`;
+      document.getElementById("pay-button").disabled = true;
+      return;
+    }
+
+    cart.forEach(item => {
+      const itemTotal = item.price * item.qty;
+      total += itemTotal;
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${itemTotal.toFixed(2)}</span>`;
+      list.appendChild(li);
+    });
+
+    totalEl.textContent = `$${total.toFixed(2)}`;
+  } catch {
+    showError("Could not load cart.");
+  }
+}
+
+async function handlePayment() {
+  const btn = document.getElementById("pay-button");
+  const loading = document.getElementById("loading");
+
+  btn.disabled = true;
+  btn.style.display = "none";
+  loading.style.display = "block";
+
+  try {
+    const res = await fetch(`${API_BASE}/create-checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "csrf-token": csrfToken
+      },
+      credentials: "include"
+    });
+
+    const session = await res.json();
+    await stripe.redirectToCheckout({ sessionId: session.id });
+
+  } catch (err) {
+    showError("Payment failed. Please try again.");
+    btn.disabled = false;
+    btn.style.display = "flex";
+    loading.style.display = "none";
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById("error");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+
+document.getElementById("pay-button").addEventListener("click", handlePayment);
+window.onload = init;
+</script>
+
+</body>
+</html>
