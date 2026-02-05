@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Canceled | Artisan Luthier Tools</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo { height: 40px; width: auto; }
+    
+    .brand-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .cancel-container {
+      width: 100%;
+      max-width: 500px;
+      background: #ffffff;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      background: #fef2f2; /* Light red */
+      color: #ef4444; /* Red */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto 1.5rem;
+    }
+
+    .cancel-container h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      color: #111827;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .cancel-container p {
+      color: #6b7280;
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .checkout-btn {
+      background: #1f2937;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 8px;
+      display: inline-block;
+      transition: all 0.2s;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .checkout-btn:hover { 
+      background: #111827; 
+      transform: translateY(-1px);
+    }
+
+    .secondary-link {
+      display: block;
+      margin-top: 1.25rem;
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .secondary-link:hover {
+      color: #111827;
+      text-decoration: underline;
+    }
+
+    footer {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      padding: 1.5rem;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.8rem;
+    }
+
+    /* Mobile-Specific Tweaks */
+    @media (max-width: 480px) {
+      .brand-text { display: none; }
+      .cancel-container {
+        padding: 2.5rem 1.25rem;
+        border-radius: 12px;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
+      .cancel-container h1 { font-size: 1.75rem; }
+      main { background: #ffffff; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="logo-container">
+      <img src="LOGO.SVG" class="logo" alt="Artisan Luthier Tools Logo">
+      <span class="brand-text">Artisan Luthier Tools</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="cancel-container">
+    <div class="icon-circle">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+    <h1>Payment Canceled</h1>
+    <p>Your payment was not completed. No charges were made. Your items are still in your cart if you'd like to try again.</p>
+    <a href="checkout.html" class="checkout-btn">← Back to Checkout</a>
+    <a href="index.html" class="secondary-link">Continue Shopping</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2024 Artisan Luthier Tools. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
