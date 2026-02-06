@@ -13,7 +13,8 @@ const cors = require('cors');
 
 // ======= ENV CHECK =======
 if (!process.env.SESSION_SECRET) throw new Error("SESSION_SECRET must be set!");
-if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_PUBLISHABLE_KEY)
+// if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_PUBLISHABLE_KEY)
+if (!process.env.STRIPE_PUBLISHABLE_KEY)
   throw new Error("Stripe keys must be set!");
 if (!process.env.BASE_URL) throw new Error("BASE_URL must be set for success/cancel URLs");
 
@@ -90,10 +91,16 @@ app.use(session({
   saveUninitialized: false,
   name: 'artisan_session',
   proxy: true, // ⭐ Added this for Render load balancer support
+  // cookie: {
+  //   secure: true, // Always true on Render (HTTPS)
+  //   httpOnly: true,
+  //   sameSite: 'none', // Required for cross-site
+  //   maxAge: 24 * 60 * 60 * 1000
+  // }
   cookie: {
-    secure: true, // Always true on Render (HTTPS)
+    secure: false,          // 🔥 MUST be false on localhost
     httpOnly: true,
-    sameSite: 'none', // Required for cross-site
+    sameSite: 'lax',        // 🔥 MUST be 'lax' on localhost
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
@@ -126,7 +133,7 @@ const PRODUCTS = {
   'cello-fhole-clamp': { name: "Special Design Cello f-hole crack clamp", price: 380, description: "Stabilizes cello top cracks." },
   'violin-fhole-clamp': { name: "Special Design Violin/Viola f-hole crack clamp", price: 320, description: "Stabilizes violin/viola top cracks." },
   'violin-clamps-35': { name: "35 pcs Violin/Viola Clamps", price: 495, description: "Protect varnish during gluing." },
-  'cello-clamps-45': { name: "45 pcs Cello clamps", price: 690, description: "Protect varnish during gluing." }  
+  'cello-clamps-45': { name: "45 pcs Cello clamps", price: 690, description: "Protect varnish during gluing." }
 };
 
 // ======= NO-CACHE HEADERS FOR CART & CHECKOUT =======

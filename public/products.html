@@ -121,14 +121,14 @@
   <div class="cart-section" id="cart-section" style="display:none;">
     <div class="cart-header">
       <h2>🛒 Your Cart</h2>
-      <button class="clear-btn" onclick="clearCart()">Clear All</button>
+      <button class="clear-btn">Clear All</button>
     </div>
     <ul class="cart-list" id="cart-list"></ul>
     <div class="cart-total">
       <span>Total</span>
       <span id="cart-total">$0.00</span>
     </div>
-    <button class="checkout-btn" onclick="checkout()">Proceed to Secure Checkout →</button>
+    <button class="checkout-btn">Proceed to Secure Checkout →</button>
   </div>
 </div>
 
@@ -218,6 +218,32 @@ async function csrfFetch(url, options = {}, retry = true) {
   }
 }
 
+document.addEventListener('click', (e) => {
+
+  // Add to cart
+  if (e.target.classList.contains('add-to-cart-btn')) {
+    const btn = e.target;
+    addToCart(btn.dataset.productId, btn.dataset.index);
+  }
+
+  // Remove from cart
+  if (e.target.classList.contains('remove-btn')) {
+    removeFromCart(e.target.dataset.productId);
+  }
+
+  // Clear cart
+  if (e.target.classList.contains('clear-btn')) {
+    clearCart();
+  }
+
+  // Checkout
+  if (e.target.classList.contains('checkout-btn')) {
+    checkout();
+  }
+
+});
+
+
 /* ---------------- PRODUCTS RENDER ---------------- */
 function renderProducts() {
   const list = document.getElementById('products-list');
@@ -231,7 +257,7 @@ function renderProducts() {
         <p>${p.description}</p>
         <div class="product-footer">
           <div class="price">$${p.price}</div>
-          <button onclick="addToCart('${p.id}', ${i})" id="btn-${i}" class="add-to-cart-btn">Add to Cart</button>
+          <button id="btn-${i}" class="add-to-cart-btn" data-product-id="${p.id}" data-index="${i}>Add to Cart</button>
         </div>
       </div>
     </div>
@@ -322,7 +348,7 @@ async function renderCart() {
             <span>${item.name}</span>
             <div style="display:flex; gap:10px; align-items:center;">
               <strong>× ${item.qty}</strong>
-              <button class="remove-btn" onclick="removeFromCart('${item.productId}')"> − </button>
+              <button class="remove-btn" data-product-id="${item.productId}"> − </button>
             </div>
           </div>
           <span>$${(item.price * item.qty).toFixed(2)}</span>
